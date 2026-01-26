@@ -4,3 +4,6 @@
 [submodule "PhysiCore"]
 	path = PhysiCore
 	url = https://github.com/bsc-life/PhysiCore.git
+[submodule "PhysiCell-Studio"]
+	path = PhysiCell-Studio
+	url = https://github.com/PhysiCell-Tools/PhysiCell-Studio.git
