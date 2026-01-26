@@ -1,0 +1,6 @@
+[submodule "PhysiCell"]
+	path = PhysiCell
+	url = https://github.com/MathCancer/PhysiCell.git
+[submodule "PhysiCore"]
+	path = PhysiCore
+	url = https://github.com/bsc-life/PhysiCore.git
