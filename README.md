@@ -274,3 +274,50 @@ In the tutorial, we will prompt an LLM agent to set up a PhysiCell simulation wi
 	```
 
 For more details on how to set up and use MCP servers with LLM agents, refer to the [PhysiCell MCP paper](https://doi.org/10.1101/2025.09.10.675105).
+
+
+# PhysiCore example
+
+Requirements for this part:
+- CMake 3.13+
+- A C++ compiler with C++20 support (e.g. `gcc`, `clang`)
+- paraview (optional, for visualization)
+
+When it comes to 3D simulations with many substrates, PhysiCell is not optimized for performance. We can run the following simulation in PhysiCell, but it will be slow and inefficient:
+
+0. Close the Studio, clean and build the PhysiCell template project:
+```bash
+cd PhysiCell # if not already there
+make clean # get rid of previous builds
+make reset # reset the project
+make template # configures the template project
+make -j # build the project
+```
+1. Copy 3D simulation to the config folder:
+```bash
+cp ../physicore-example/settings.xml ./config/PhysiCell_settings.xml
+```
+2. Start the 3D Studio (requires vtk package):
+```bash
+pip install vtk
+python ../PhysiCell-Studio/bin/studio.py -c config/PhysiCell_settings.xml -e project -3
+```
+3. Run the simulation and observe the performance.
+
+To address this, we have developed PhysiCore, a high-performance C++ library, which is designed to simplify C++ development of custom biological simulations. Lets run the same simulation using PhysiCore:
+
+0. Navigate to the physicore-example folder and build the project:
+```bash
+cd ../physicore-example
+cmake -B build -S .
+cmake --build build --config Release -j
+```
+1. Run the simulation:
+```bash
+./build/physicore_example
+```
+
+2. (Optional) Visualize the output using ParaView:
+```bash
+paraview output/microenvironment.pvd
+```	
