@@ -231,3 +231,46 @@ make -j # build the project
 In this tutorial, the cell cycle is regulated by an intracellular Boolean network that responds to substrate concentrations in the microenvironment. Depending on the network state, cells can proliferate, apoptose, necrotize, or perform any other custom behavior defined in the config file.
 
 Refer to the [PhysiBoSS Tutorial models](PhysiCell/sample_projects_intracellular/boolean/tutorial/README.md) for detailed description of each configuration file.
+
+# MCP tutorial
+
+Until now, we have been interacting with PhysiCell simulations using the PhysiCell Studio. However, for more advanced use cases, we can use LLM Agents to interact with the simulations programmatically through the MCP servers.
+
+Requirements for this part:
+
+- IDE, which can host MCP servers, e.g. Visual Studio Code
+- MCP extension installed in the IDE
+- an LLM model
+
+In the tutorial, we will prompt an LLM agent to set up a PhysiCell simulation with specific parameters:
+
+0. While sourced to the aforementioned Python virtual environment, install the required dependencies for MCP:
+
+	```bash
+	pip install -r mcp-reqs.txt
+	```
+
+1. Open your IDE with MCP extension and start `physicell` MCP server.
+2. Give this prompt to the LLM agent:
+
+	```
+	Create a PhysiCell simulation with the following parameters:
+	- Substrate: diffusion coefficient `1000` um²/min, decay rate `0.1` 1/min, initial condition `0`, Dirichlet boundary `1000`
+	- Secreting cells: secretion rate `100` 1/min, target density `5000`
+	- Uptaking cells: uptake rate `1000` 1/min
+	- Migrating cells: motility enabled, chemotaxis towards substrate, migration speed `10` um/min, bias `0.5`
+	- Mechanical interactions: cell-cell repulsion `0.5`, adhesion affinity `1.0`
+	```
+
+	*The tools contained in the MCP server will gradually modify the PhysiCell_settings.xml according to the initiated LLM calls.*
+
+3. Instead of giving specific instructions, you can prompt the LLM agent with a more complex task, e.g.:
+
+	```
+	Create a simulation of breast cancer cells in a hypoxic 3D environment with immune cell infiltration
+	```
+	```
+	Integrate the p53 Boolean network into cancer cell behavior and simulate tumor growth under drug treatment
+	```
+
+For more details on how to set up and use MCP servers with LLM agents, refer to the [PhysiCell MCP paper](https://doi.org/10.1101/2025.09.10.675105).
