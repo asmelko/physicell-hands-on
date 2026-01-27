@@ -7,3 +7,6 @@
 [submodule "PhysiCell-Studio"]
 	path = PhysiCell-Studio
 	url = https://github.com/PhysiCell-Tools/PhysiCell-Studio.git
+[submodule "mcp-biomodelling-servers"]
+	path = mcp-biomodelling-servers
+	url = https://github.com/marcorusc/mcp-biomodelling-servers.git
