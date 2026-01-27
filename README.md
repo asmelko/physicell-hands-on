@@ -214,3 +214,20 @@ Restart the Studio:
 python ../PhysiCell-Studio/bin/studio.py -c config/PhysiCell_settings.xml -e biorobots
 ```
 
+# Complete PhysiCell tutorials with Boolean networks extension
+
+In this part, we will explore the complete PhysiCell tutorial that uses Boolean networks for intracellular signaling. This tutorial combines all the time-steps: diffusion, mechanics, phenotypes and intracellular signaling.
+
+First, close the Studio, clean and build the PhysiCell physiboss-tutorial project:
+
+```bash
+cd PhysiCell # if not already there
+make clean # get rid of previous builds
+make reset # reset the project
+make physiboss-tutorial # configures the physiboss-tutorial project
+make -j # build the project
+```
+
+In this tutorial, the cell cycle is regulated by an intracellular Boolean network that responds to substrate concentrations in the microenvironment. Depending on the network state, cells can proliferate, apoptose, necrotize, or perform any other custom behavior defined in the config file.
+
+Refer to the [PhysiBoSS Tutorial models](PhysiCell/sample_projects_intracellular/boolean/tutorial/README.md) for detailed description of each configuration file.
