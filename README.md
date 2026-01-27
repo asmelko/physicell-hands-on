@@ -1,10 +1,10 @@
 # Requirements
 
 - Python 3.11+
-- Python venv module
-- make
-- git
-- A C++ compiler with C++11 support (e.g. gcc, clang)
+- Python `venv` module
+- `make`
+- `git`
+- A C++ compiler with C++11 support (e.g. `gcc`, `clang`)
 
 # Repository setup instructions
 
@@ -130,5 +130,87 @@ The prefedined main file for this example is in `diffusion/main_bulk_sources_and
 
 ```bash
 cp ../diffusion/main_bulk_sources_and_sinks.cpp ./PhysiCell/main.cpp
+```
+
+# Mechanics time-step tutorial
+
+In this part, we will explore how to set the mechanics time-step in PhysiCell simulations.
+
+First, close the Studio, clean and rebuild the PhysiCell template project:
+
+```bash
+cd PhysiCell # if not already there
+make clean # get rid of previous builds
+make reset # reset the project
+make template # configures the template project
+make -j # build the project
+```
+Restart the Studio:
+
+```bash
+python ../PhysiCell-Studio/bin/studio.py -c config/PhysiCell_settings.xml -e project
+```
+
+## 1. Cell mechanics 
+
+Let's start with a simple example of cell mechanics. We will set up a simulation with cells that interact mechanically with each other.
+
+0. In `Config Basics` tab, tick `enable` box under `Initial conditions of cells` to allow Studio to place cells in the simulation. In `ICs` tab, under `Cell Initial Condition` sub-space, select the region and number of cells to place in the simulation. See how cells are initially overlapping.
+1. Run and observe how cells move and spread out over time due to cell mechanics.
+2. In `Cell Types` tab, under `Mechanical` sub-tab, set `cell-cell repulsion strength` to `1.0` and run the simulation again. Observe how cells move more slowly and take longer to spread out.
+3. On the left, in `Cell Types` tab, add new cell type by clicking `New`. The strenght of mechanics interactions between different cell types can be set in the `cell adhesion affinity`.
+Create cells of this new type, set these parameters to different values for the new cell type and observe how cells of different types interact with each other during the simulation.
+
+There is a predefined configuration file for this example in `mechanics/PhysiCell_settings_1.xml`. If you do not want to follow the steps above, you can copy it to your project folder to quickly set up the simulation with the parameters described above (do this before starting the Studio to have the settings loaded on startup):
+
+```bash
+cp ../mechanics/PhysiCell_settings_1.xml ./config/PhysiCell_settings.xml
+```
+
+## 2. Cell motility
+
+Another part of cell mechanics is cell motility. In this example, we will set up a simulation with cells that migrate towards higher concentration of a substrate.
+
+0. Add a Dirichlet boundary condition in `Microenvironment` tab to set substrate concentration at the boundary to `1000`.
+1. In `Cell Types` tab, under `Motility` sub-tab, set `enable motility` to `true`, `chemotaxis substrate` to the substrate you created the Dirichlet boundary for, `chemotaxis direction` to `towards`. Run the simulation and observe how cells move towards higher substrate concentration.
+2. Play with `migration speed`, `bias` and other motility parameters to see how they affect cell movement.
+
+There is a predefined configuration file for this example in `mechanics/PhysiCell_settings_2.xml`. If you do not want to follow the steps above, you can copy it to your project folder to quickly set up the simulation with the parameters described above (do this before starting the Studio to have the settings loaded on startup):
+
+```bash
+cp ../mechanics/PhysiCell_settings_2.xml ./config/PhysiCell_settings.xml
+```
+
+## 3. Cell springs
+
+Cell springs allow cells to attach to each other and move together. In this example, we will set up a simulation with cells that attach to each other during migration.
+
+1. In `Cell Types` tab, under `Mechanical` sub-tab, set `attachment rate` of the new cell type to `1.0`. Run the simulation and observe how migrating cells attach to other cells and move them.
+2. Play with `attachment rate`, `detachment rate`, and `spring constant` to see how they affect cell-cell interactions during migration.
+
+
+There is a predefined configuration file for this example in `mechanics/PhysiCell_settings_3.xml`. If you do not want to follow the steps above, you can copy it to your project folder to quickly set up the simulation with the parameters described above (do this before starting the Studio to have the settings loaded on startup):
+
+```bash
+cp ../mechanics/PhysiCell_settings_3.xml ./config/PhysiCell_settings.xml
+```
+
+## 4. Advanced example: Custom mechanics functions
+
+For the custom mechanics functions, we will analyze the source code of biorobots sample that comes with PhysiCell.
+
+First, close the Studio, clean and build the PhysiCell biorobots-sample project:
+
+```bash
+cd PhysiCell # if not already there
+make clean # get rid of previous builds
+make reset # reset the project
+make biorobots-sample # configures the biorobots project
+make -j # build the project
+```
+Restart the Studio:
+
+```bash
+python ../PhysiCell-Studio/bin/studio.py -c config/PhysiCell_settings.xml -e biorobots
 ```
 
