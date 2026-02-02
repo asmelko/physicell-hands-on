@@ -8,10 +8,12 @@
 
 # Repository setup instructions
 
-1. Clone the PhysiCell repository
+1. Clone the PhysiCell repository, `cd` into it, and initialize submodules
 
    ```bash
-   git clone --recurse-submodules --depth 1
+   git clone https://github.com/asmelko/physicell-hands-on.git
+   cd physicell-hands-on
+   git submodule update --init --depth 1
    ```
 
 2. Create and activate a Python virtual environment
